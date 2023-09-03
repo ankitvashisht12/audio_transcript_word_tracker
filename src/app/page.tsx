@@ -1,6 +1,34 @@
-import Image from 'next/image'
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { TRANSCRIPT } from "./transcript";
 
 export default function Home() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const trickRef = useRef<number>(0)
+  const [highlightedWordIndex, setHightlightedWordIndex] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playAudio = () => {
+    if (!isPlaying) audioRef.current?.play();
+    else audioRef.current?.pause();
+
+    setIsPlaying((val) => !val);
+  };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.ontimeupdate = () => {
+        const currentTime = audioRef.current?.currentTime;
+        if(currentTime  && currentTime > 4.7 + trickRef.current) {
+          console.log( currentTime );
+          trickRef.current += 0.1
+          setHightlightedWordIndex((val) => val + 1);
+        }
+      };
+    }
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -15,7 +43,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -39,75 +67,27 @@ export default function Home() {
         />
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+      <div className="flex flex-col justify-center items-center h-full w-full">
+        <p className="max-h-[200px] text-lg overflow-auto">
+          {TRANSCRIPT.split(" ").map((word, index) => (
+            <span
+              key={index}
+              className={
+                `${index === highlightedWordIndex ? "bg-white text-black" : "bg-transparent text-white"} m-1`
+              }
+            >
+              {word}
             </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+          ))}
+        </p>
+        <button
+          onClick={playAudio}
+          className={`border-2 rounded-full px-4 py-2 mb-3 text-2xl font-semibold`}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          {!isPlaying ? " > Play audio" : " || Pause audio"}
+        </button>
+        <audio ref={audioRef} src="/assets/index.mp3" />
       </div>
     </main>
-  )
+  );
 }

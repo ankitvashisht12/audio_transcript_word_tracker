@@ -1,0 +1,62 @@
+Now I do expect you to know some of
+the basics of OO you don't have to know Java though some of you
+are coming from knowing Java so knowing Java is a positive
+in the sense that. Lots of stuff in C++ that so old, looks very much like Java, but
+you do have to be careful. Some of the stuff that looks almost
+the same has important differences. So you must keep in mind that
+when you learn the C++ version even if the syntactic instructions looks
+the same, you have to make sure you know what the runtime semantics are for
+the C++ construct. Object orientation knowledge
+is something I'm expecting. If you're a little rusty there,
+read the Wikipedia article. It's a very good article
+on the basics of OO, but that's how we intend to
+develop our software, one of, one of the key methodologies we
+will be using in the C++ community. Okay. Quiz, from what you know
+about object orientation, which of these ideas best fit OO? Does OO mean that you're using recursion? Does OO mean data and
+operations are bound together? Does OO mean that type safety is critical? Does OO imply that automatic
+garbage collection is available? So take a second here,
+at this break, and answer this quiz. So, let's discuss the answers. Object orientation is not
+about flow of control, but of course your background should
+have led to use of recursions. So again, you should be
+comfortable with using recursion. The second answer was what
+I consider a best answer. An object is a data type and
+it's found out with its operations. And think of a data type that
+you have in the base language. And it's something like int. And in the base language,
+you have operations like + and *. Now in an all language,
+like C++, there are things. You just have a certain
+set of basic native types. And the crucial thing that makes OO
+languages so powerful is, they allow type extensibility that allows you to
+program naturally with the new types. So if you think about C++,
+there isn't a native type there. But in the standard library,
+you can get a complex number type. And the complex number type, once it's included in the language,
+once it's built properly. Allows for operations like plus and
+times in a natural way. And somebody who works in a community,
+such as a physicist or an engineer that uses
+complex numbers will just routinely use that complex
+number package very effectively. And an OO type could
+be a windowing system. So you could have somebody right window,
+and then have natural operations on a window. Like making them larger, making them
+smaller, putting them in the background, allowing for text mode,
+adding in things like menus. So it's a nice way to build software. One of the things in programming
+language history are when people tried to have universal languages, what they invariably ran into was
+either they make a language so big that it was unmanageable, or
+unlearnable, or inefficient or they couldn't track
+everything that was useful. So the early attempts to have universal
+languages such as PL/I while they were remarkable languages in this systems,
+PL/I being invented in the mid 1960s by IBM, were essentially failures,
+largely failures. And that then let to object oriented
+languages, well actually first data abstraction languages such as MODULA and
+Ada were quite successful as well. They share a lot with object orientation,
+and these languages let you
+have a coherent kernel. So in C++'s case,
+that coherent kernel is C. In Simula 67's case,
+the coherent kernel was ALGOL 60, and you could be a proficient programmer
+in C, you were in the ALGOL 60 case, and then readily extend
+the language to a new domain, such as complex that's what
+meant by object orientation. Type safety is usually a good property, it's a good property in many
+languages including OO languages so it doesn't define them, and the same thing
+can be said about garbage collection. It can be built into an object
+oriented language, it's very useful. It's also in languages such as Lisp and
+Common Lisp and Scheme. But it's not a requirement,
+it's not the essential feature of object-orientation which is
+really height extensibility.
